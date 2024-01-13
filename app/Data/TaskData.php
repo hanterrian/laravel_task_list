@@ -17,7 +17,7 @@ class TaskData extends Data
 {
     public function __construct(
         public int $id,
-        public User $owner,
+        public UserData $owner,
         public ?Task $parent,
         public TaskStatus $status,
         public int $priority,
@@ -25,8 +25,10 @@ class TaskData extends Data
         public string $description,
         #[DataCollectionOf(TaskChildrenData::class), MapName('subTasks')]
         public ?DataCollection $children,
-        public ?Carbon $createdAt,
-        public ?Carbon $completedAt,
+        #[DataCollectionOf(CommentData::class), MapName('comments')]
+        public ?DataCollection $comments,
+        public ?Carbon $created_at,
+        public ?Carbon $completed_at,
     ) {
     }
 
@@ -34,15 +36,16 @@ class TaskData extends Data
     {
         return new self(
             id: $task->id,
-            owner: $task->owner,
-            parent: $task->parent,
+            owner: $task->owner->getData(),
+            parent: $task->parent?->getData(),
             status: $task->status,
             priority: $task->priority,
             title: $task->title,
             description: $task->description,
             children: TaskChildrenData::collection($task->children),
-            createdAt: $task->created_at,
-            completedAt: $task->completed_at,
+            comments: CommentData::collection($task->comments),
+            created_at: $task->created_at,
+            completed_at: $task->completed_at,
         );
     }
 }
