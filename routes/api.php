@@ -31,5 +31,5 @@ Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'tasks'], function (
     Route::patch('complete/{id}', [TaskController::class, 'complete']);
 });
 
-Route::apiResource('tasks', TaskController::class);
-Route::apiResource('tasks.comments', CommentController::class);
+Route::apiResource('tasks', TaskController::class, ['middleware' => ['auth:sanctum']]);
+Route::apiResource('tasks.comments', CommentController::class, ['middleware' => ['auth:sanctum']]);
