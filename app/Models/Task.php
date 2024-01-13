@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Data\TaskData;
 use App\Enum\TaskStatus;
+use App\Models\Scopes\TaskScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,11 +38,18 @@ use Spatie\LaravelData\WithData;
  * @property-read \App\Models\User|null $owner
  * @property-read Task|null $parent
  *
+ * @method static \Illuminate\Database\Eloquent\Builder|Task description(string $description)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task done()
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Task onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task priority(int $priority)
  * @method static \Illuminate\Database\Eloquent\Builder|Task query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task sort(array $sort)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task status(\App\Enum\TaskStatus $status)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task title(string $title)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task todos()
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereCompletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereDeletedAt($value)
@@ -60,7 +68,7 @@ use Spatie\LaravelData\WithData;
  */
 class Task extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, WithData;
+    use HasFactory, Notifiable, SoftDeletes, TaskScope, WithData;
 
     protected $fillable = [
         'parent_id',

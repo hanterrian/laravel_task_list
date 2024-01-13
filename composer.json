@@ -58,7 +58,7 @@
             "@php artisan ide-helper:models -WR"
         ],
         "fix": [
-            "./vendor/bin/pint"
+            "./vendor/bin/pint -v"
         ]
     },
     "extra": {

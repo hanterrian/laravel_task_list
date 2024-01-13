@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enum\CommentStatus;
+use App\Models\Scopes\CommentScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,10 +29,13 @@ use Spatie\LaravelData\WithData;
  * @property-read \App\Models\User|null $owner
  * @property-read \App\Models\Task|null $task
  *
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment draft()
  * @method static \Database\Factories\CommentFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment hidden()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment published()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereComment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
@@ -48,7 +52,7 @@ use Spatie\LaravelData\WithData;
  */
 class Comment extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes, WithData;
+    use CommentScope, HasFactory, Notifiable, SoftDeletes, WithData;
 
     protected $fillable = [
         'status',
