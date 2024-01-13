@@ -13,7 +13,7 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-        if (!User::exists()) {
+        if (! User::exists()) {
             $this->call([UserSeeder::class]);
         }
 

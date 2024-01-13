@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class SubTaskSeeder extends Seeder
@@ -13,10 +12,9 @@ class SubTaskSeeder extends Seeder
      */
     public function run(): void
     {
-        if (!Task::exists()) {
+        if (! Task::exists()) {
             $this->call([TaskSeeder::class]);
         }
-
 
         Task::factory()
             ->count(500)
