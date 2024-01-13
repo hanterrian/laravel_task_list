@@ -28,7 +28,6 @@ use Spatie\LaravelData\WithData;
  * @property-read int|null $notifications_count
  * @property-read \App\Models\User|null $owner
  * @property-read \App\Models\Task|null $task
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Comment draft()
  * @method static \Database\Factories\CommentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Comment hidden()
@@ -47,7 +46,6 @@ use Spatie\LaravelData\WithData;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment withoutTrashed()
- *
  * @mixin \Eloquent
  */
 class Comment extends Model

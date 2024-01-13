@@ -13,18 +13,14 @@ use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 
-class TaskData extends Data
+class TaskChildrenData extends Data
 {
     public function __construct(
         public int $id,
-        public User $owner,
-        public ?Task $parent,
         public TaskStatus $status,
         public int $priority,
         public string $title,
         public string $description,
-        #[DataCollectionOf(TaskChildrenData::class), MapName('subTasks')]
-        public ?DataCollection $children,
         public ?Carbon $createdAt,
         public ?Carbon $completedAt,
     ) {
@@ -34,13 +30,10 @@ class TaskData extends Data
     {
         return new self(
             id: $task->id,
-            owner: $task->owner,
-            parent: $task->parent,
             status: $task->status,
             priority: $task->priority,
             title: $task->title,
             description: $task->description,
-            children: TaskChildrenData::collection($task->children),
             createdAt: $task->created_at,
             completedAt: $task->completed_at,
         );

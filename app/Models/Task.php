@@ -37,7 +37,6 @@ use Spatie\LaravelData\WithData;
  * @property-read int|null $notifications_count
  * @property-read \App\Models\User|null $owner
  * @property-read Task|null $parent
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Task description(string $description)
  * @method static \Illuminate\Database\Eloquent\Builder|Task done()
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
@@ -63,7 +62,6 @@ use Spatie\LaravelData\WithData;
  * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Task withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Task withoutTrashed()
- *
  * @mixin \Eloquent
  */
 class Task extends Model
