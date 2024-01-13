@@ -30,6 +30,7 @@ class TaskController extends Controller
 
     public function complete(Task $task)
     {
+        $this->authorize('complete', $task);
     }
 
     public function destroy(Task $task)

@@ -12,7 +12,7 @@ class TaskFilterRequest extends FormRequest
     {
         return [
             'status' => [Rule::enum(TaskStatus::class)],
-            'priority' => ['numeric', 'min:0', 'max:5'],
+            'priority' => ['numeric', 'min:1', 'max:5'],
             'title' => ['string', 'max:255'],
             'description' => ['string', 'max:5000'],
             'sort' => ['array'],

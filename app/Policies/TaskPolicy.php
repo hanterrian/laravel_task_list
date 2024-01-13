@@ -14,7 +14,7 @@ class TaskPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class TaskPolicy
      */
     public function view(User $user, Task $task): bool
     {
-        //
+        if ($user->id === $task->owner_id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -30,7 +34,7 @@ class TaskPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -38,7 +42,23 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-        //
+        if ($user->id === $task->owner_id) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can complete the model.
+     */
+    public function complete(User $user, Task $task): bool
+    {
+        if ($user->id === $task->owner_id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -46,7 +66,11 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        //
+        if ($user->id === $task->owner_id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -54,7 +78,11 @@ class TaskPolicy
      */
     public function restore(User $user, Task $task): bool
     {
-        //
+        if ($user->id === $task->owner_id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -62,6 +90,10 @@ class TaskPolicy
      */
     public function forceDelete(User $user, Task $task): bool
     {
-        //
+        if ($user->id === $task->owner_id) {
+            return true;
+        }
+
+        return false;
     }
 }
