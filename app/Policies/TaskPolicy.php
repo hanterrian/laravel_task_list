@@ -22,7 +22,11 @@ class TaskPolicy
      */
     public function view(User $user, Task $task): bool
     {
-        return true;
+        if ($user->id === $task->owner_id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

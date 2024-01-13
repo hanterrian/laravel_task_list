@@ -87,6 +87,16 @@ class Task extends Model
 
     protected string $dataClass = TaskData::class;
 
+    public function isTodo(): bool
+    {
+        return $this->status === TaskStatus::TODO;
+    }
+
+    public function isDone(): bool
+    {
+        return $this->status === TaskStatus::DONE;
+    }
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');

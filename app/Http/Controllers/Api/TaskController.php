@@ -12,6 +12,7 @@ use App\Http\Requests\Task\TaskFilterRequest;
 use App\Http\Requests\Task\TaskStoreRequest;
 use App\Http\Requests\Task\TaskUpdateRequest;
 use App\Models\Task;
+use Illuminate\Http\Response;
 use Spatie\LaravelData\DataCollection;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
@@ -51,23 +52,25 @@ class TaskController extends Controller
 
     public function store(TaskStoreRequest $request): TaskData
     {
-        $model = Task::create($request->all());
+        $model = Task::create(array_merge($request->all(), [
+            'owner_id' => $request->user()->id,
+        ]));
 
         return TaskData::from($model);
     }
 
-    public function update(Task $task, TaskUpdateRequest $request)
+    public function update(Task $task, TaskUpdateRequest $request): Response
     {
         $task->update($request->all());
 
         return response()->noContent();
     }
 
-    public function complete(Task $task)
+    public function complete(Task $task): Response
     {
         $this->authorize('complete', $task);
 
-        if ($task->status == TaskStatus::DONE) {
+        if ($task->isDone()) {
             throw new NotAcceptableHttpException('Task is already completed.');
         }
 
@@ -82,9 +85,9 @@ class TaskController extends Controller
         return response()->noContent();
     }
 
-    public function destroy(Task $task)
+    public function destroy(Task $task): Response
     {
-        if ($task->status == TaskStatus::DONE) {
+        if ($task->isDone()) {
             throw new NotAcceptableHttpException('You cannot delete a task that has already been completed.');
         }
 

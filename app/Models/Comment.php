@@ -55,6 +55,7 @@ class Comment extends Model
     use CommentScope, HasFactory, Notifiable, SoftDeletes, WithData;
 
     protected $fillable = [
+        'task_id',
         'status',
         'comment',
     ];
