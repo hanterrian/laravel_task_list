@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'tasks'], function () {
+    Route::patch('complete/{id}', [TaskController::class, 'complete']);
+});
+
+Route::apiResource('tasks', TaskController::class);
+Route::apiResource('tasks.comments', CommentController::class);
+
+require __DIR__.'/auth.php';
